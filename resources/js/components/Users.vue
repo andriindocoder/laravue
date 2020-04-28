@@ -31,11 +31,11 @@
                       <td>{{ user.type | upText }}</td>
                       <td>{{ user.created_at | myDate }}</td>
                       <td>
-                          <a href="">
+                          <a href="#">
                             <i class="fa fa-edit blue"></i>
                           </a>
                            | 
-                          <a href="">
+                          <a href="#" @click="deleteUser(user.id)">
                             <i class="fa fa-trash red"></i>
                           </a>
                       </td>
@@ -118,6 +118,37 @@
             }
         },
         methods: {
+            deleteUser(id) {
+              Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+              }).then((result) => {
+                //Send request to server
+                if(result.value) {
+                  this.form.delete('api/user/'+id)
+                      if (result.value) {
+                        Swal.fire(
+                          'Deleted!',
+                          'Your file has been deleted.',
+                          'success'
+                        )
+                      }
+                      Fire.$emit('AfterAction');
+                    }
+              })
+              .catch((error) => {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Something went wrong!'
+                })
+              })
+            },
             loadUsers() {
               axios.get('api/user').then(({ data }) => (this.users = data.data));
             },
@@ -125,7 +156,7 @@
               this.$Progress.start();
               this.form.post('api/user')
                 .then(() => {
-                  Fire.$emit('AfterCreate');
+                  Fire.$emit('AfterAction');
 
                   $('#addNew').modal('hide');
 
@@ -138,13 +169,11 @@
                 .catch((error) => {
                   console.log(error);
                 })
-
-              
             }
         },
         created() {
             this.loadUsers();
-            Fire.$on('AfterCreate', () => {
+            Fire.$on('AfterAction', () => {
               this.loadUsers();
             });
             // setInterval(() => this.loadUsers(), 3000);
