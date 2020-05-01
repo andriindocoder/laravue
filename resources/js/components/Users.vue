@@ -112,6 +112,7 @@
                 editmode: false,
                 users: {},
                 form: new Form({
+                    id: '',
                     name: '',
                     email: '',
                     password: '',
@@ -134,7 +135,23 @@
               this.form.fill(user);
             },
             updateUser() {
-
+              this.$Progress.start();
+              this.form.put('api/user/'+this.form.id)
+                .then(() => {
+                  //Success
+                  $('#addNew').modal('hide');
+                  Swal.fire(
+                    'Updated!',
+                    'User has been updated.',
+                    'success'
+                  );
+                  this.$Progress.finish();
+                  Fire.$emit('AfterAction');
+                })
+                .catch((error) => {
+                  console.log(error);
+                  this.$Progress.fail();
+                })
             },
             deleteUser(id) {
               Swal.fire({
