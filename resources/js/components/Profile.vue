@@ -81,30 +81,15 @@
                             </div>
                           </div>
                           <div class="form-group row">
-                            <label for="inputName2" class="col-sm-2 col-form-label">Name</label>
-                            <div class="col-sm-10">
-                              <input type="text" class="form-control" id="inputName2" placeholder="Name">
-                            </div>
-                          </div>
-                          <div class="form-group row">
                             <label for="inputExperience" class="col-sm-2 col-form-label">Experience</label>
                             <div class="col-sm-10">
                               <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
                             </div>
                           </div>
                           <div class="form-group row">
-                            <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
+                            <label for="inputEmail" class="col-sm-2 col-form-label">Profile Photo</label>
                             <div class="col-sm-10">
-                              <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
-                            </div>
-                          </div>
-                          <div class="form-group row">
-                            <div class="offset-sm-2 col-sm-10">
-                              <div class="checkbox">
-                                <label>
-                                  <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                                </label>
-                              </div>
+                              <input type="file" @change="updateProfile" name="photo" class="form-input">
                             </div>
                           </div>
                           <div class="form-group row">
@@ -141,6 +126,18 @@
         },
         mounted() {
             console.log('Component mounted.')
+        },
+        methods: {
+            updateProfile(e) {
+                let file = e.target.files[0];
+                let reader = new FileReader();
+                reader.onloadend = (file) => {
+                    // console.log(reader.result);
+                    this.form.photo = reader.result;
+                }
+
+                reader.readAsDataURL(file);
+            }
         },
         created() {
             axios.get('api/profile')
