@@ -94,7 +94,7 @@
                           </div>
                           <div class="form-group row">
                             <div class="offset-sm-2 col-sm-10">
-                              <button type="submit" class="btn btn-danger">Submit</button>
+                              <button @click.prevent="updateInfo" type="submit" class="btn btn-success">Update</button>
                             </div>
                           </div>
                         </form>
@@ -119,7 +119,7 @@
                     email: '',
                     password: '',
                     type: '',
-                    bio: '',
+                    bio: '  ',
                     photo: ''
                 })
             }
@@ -128,6 +128,15 @@
             console.log('Component mounted.')
         },
         methods: {
+            updateInfo() {
+                this.form.put('api/profile/')
+                    .then(() => {
+
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            },
             updateProfile(e) {
                 let file = e.target.files[0];
                 let reader = new FileReader();
