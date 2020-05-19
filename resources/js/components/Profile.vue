@@ -71,13 +71,15 @@
                           <div class="form-group row">
                             <label for="inputName" class="col-sm-2 col-form-label">Name</label>
                             <div class="col-sm-10">
-                              <input v-model="form.name" type="name" class="form-control" id="inputName" placeholder="Name">
+                              <input v-model="form.name" type="name" class="form-control" :class="{ 'is-invalid': form.errors.has('name') }" id="inputName" placeholder="Name">
+                              <has-error :form="form" field="name"></has-error>
                             </div>
                           </div>
                           <div class="form-group row">
-                            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                            <label for="inputEmail" class="col-sm-2 col-form-label">Emailku</label>
                             <div class="col-sm-10">
-                              <input v-model="form.email" type="email" class="form-control" id="inputEmail" placeholder="Email">
+                              <input v-model="form.email" type="email" class="form-control" :class="{ 'is-invalid': form.errors.has('email') }" id="inputEmail" placeholder="Email">
+                              <has-error :form="form" field="email"></has-error>
                             </div>
                           </div>
                           <div class="form-group row">
