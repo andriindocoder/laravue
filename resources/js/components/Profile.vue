@@ -93,6 +93,12 @@
                             </div>
                           </div>
                           <div class="form-group row">
+                            <label for="password" class="col-sm-2 col-form-label">Password (Leave empty if no change)</label>
+                            <div class="col-sm-10">
+                              <input v-model="form.password" type="password" class="form-control" id="password" placeholder="Password">
+                            </div>
+                          </div>
+                          <div class="form-group row">
                             <div class="offset-sm-2 col-sm-10">
                               <button @click.prevent="updateInfo" type="submit" class="btn btn-success">Update</button>
                             </div>
