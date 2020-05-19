@@ -132,10 +132,11 @@
                 this.$Progress.start();
                 this.form.put('api/profile/')
                     .then(() => {
-
+                        this.$Progress.finish();
                     })
                     .catch((error) => {
                         console.log(error);
+                        this.$Progress.fail();
                     });
             },
             updateProfile(e) {
