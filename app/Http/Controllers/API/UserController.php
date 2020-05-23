@@ -18,10 +18,13 @@ class UserController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     */
+     */ 
     public function index()
     {
-        return User::latest()->paginate(20);
+        if(\Gate::allows('isAdmin') || \Gate::allows('isAuthor')) {
+            return User::latest()->paginate(20);
+        }
+
     }
 
     /**
