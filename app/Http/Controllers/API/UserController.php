@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 
+//vuetable
+//awesome-vue
+//spatie vue-talbe-component
+//laravel-vue-pagination
+
 class UserController extends Controller
 {
 
