@@ -28,4 +28,6 @@ class Article extends JsonResource
             'author_url' => url('http://indocoder.com')
         ];
     }
+
+    //developerdino / example-articles-api
 }
